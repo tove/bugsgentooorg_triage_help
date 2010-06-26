@@ -48,9 +48,6 @@
   var component = document.getElementById("component").value;
 
 
-/* Note to andre: Drop your non-public Nokia stuff here */
-
-
 /*************************************************************/
 /* set prefered height of some fields:                       */
 /*************************************************************/
@@ -78,7 +75,7 @@ if (document.getElementById("addselfcc") != null) {
   var individualDivText = document.createTextNode(""); // "heading" for the div
   individualDiv.appendChild(individualDivText);
   individualDiv.setAttribute('style', "max-width:700px; border:0px solid #000000; padding:0px; margin: 2px 0px 2px; text-align: left; background-color:#DDDAEC");
-  commentField.parentNode.insertBefore(individualDiv, commentField);
+  commentField.parentNode.insertBefore(individualDiv, commentField.nextSibling);
 
 
 
@@ -163,7 +160,7 @@ function addTextToComment(text, knob, resolve, crasher, ccme, keyword) {
     if (document.getElementsByName('keywords')[0].value == "") {
       document.getElementsByName('keywords')[0].value = keyword;
     }
-    else {
+    else if ( !document.getElementsByName('keywords')[0].value.match(keyword) ) {
       document.getElementsByName('keywords')[0].value += ","+keyword;
     }
   }
@@ -179,7 +176,7 @@ function addTextToComment(text, knob, resolve, crasher, ccme, keyword) {
 }
 
 
-Date.prototype.toYYYYMMDDString = function () {return isNaN (this) ? 'NaN' : [this.getUTCFullYear(), this.getUTCMonth() > 8 ? this.getUTCMonth() + 1 : '0' + (this.getUTCMonth() + 1) , this.getUTCDate() > 9 ? this.getUTCDate() : '0' + this.getDate()].join('-')}
+Date.prototype.toYYYYMMDDString = function () {return isNaN (this) ? 'NaN' : [this.getUTCFullYear(), this.getUTCMonth() > 8 ? this.getUTCMonth() + 1 : '0' + (this.getUTCMonth() + 1) , this.getUTCDate() > 9 ? this.getUTCDate() : '0' + this.getDate()].join('-');}
 
 /****************************************************/
 /* Gentoo mods                                      */
@@ -199,12 +196,32 @@ function DupClick (Event) {
 }
 
 function SunriseSuggested (Event) {
-  var Text = "Hello, The Gentoo Team would like to firstly thank you for your ebuild\nsubmission. Unfortunately it is possible that your ebuild might not reach the\nportage tree in a timely manner. There are simply too many new packages.\n\nAllow me to use this opportunity to introduce you to Gentoo Sunrise. The Project\nSunrise overlay [1] is a overlay for Gentoo which we allow trusted users to\ncommit to and all users can have ebuilds reviewed by Gentoo devs for entry into\nthe overlay. Please read the SunriseFaq [2] for additional information.\n\n[1] http://www.gentoo.org/proj/en/sunrise/\n[2] http://overlays.gentoo.org/proj/sunrise/wiki/SunriseFaq";
+  var Text = "Hello, The Gentoo Team would like to firstly thank you for your ebuild\n\
+submission. We also apologize for not being able to accommodate you in a timely\n\
+manner. There are simply too many new packages.\n\
+\n\
+Allow me to use this opportunity to introduce you to Gentoo Sunrise. The\n\
+sunrise overlay[1] is a overlay for Gentoo which we allow trusted users to\n\
+commit to and all users can have ebuilds reviewed by Gentoo devs for entry\n\
+into the overlay. So, the sunrise team is suggesting that you look into this\n\
+and submit your ebuild to the overlay where even *you* can commit to. =)\n\
+\n\
+Thanks,\n\
+On behalf of the Gentoo Sunrise Team\n\
+\n\
+  [1]: http://www.gentoo.org/proj/en/sunrise/\n\
+  [2]: http://overlays.gentoo.org/proj/sunrise/wiki/SunriseFaq";
   addTextToComment(Text, 'reassign', '', '', '', 'EBUILD');
-  if ( document.getElementById("assigned_to").value == "bug-wranglers@gentoo.org" ) {
-    document.getElementById("assigned_to").value="maintainer-wanted@gentoo.org";
+  if ( document.getElementById("assigned_to").value === 'bug-wranglers@gentoo.org' ) {
+    document.getElementById("assigned_to").value = 'maintainer-wanted@gentoo.org';
   }
-  document.getElementsByName("status_whiteboard")[0].value += "sunrise-suggested";
+  if ( document.getElementsByName("status_whiteboard")[0].value && document.getElementsByName("status_whiteboard")[0].value != "" ) {
+    if ( !document.getElementsByName("status_whiteboard")[0].value.match('sunrise-suggested') ) {
+      document.getElementsByName("status_whiteboard")[0].value += ", sunrise-suggested";
+    }
+  } else {
+    document.getElementsByName("status_whiteboard")[0].value = "sunrise-suggested";
+  }
 }
 
 function RecruiterAnnounce (Event) {
@@ -280,7 +297,7 @@ createStockResponse('moreinfo1', '[EmergeInfo] ', EmergeInfo, 4);
 //if (product == "Gentoo Linux" && component == "Ebuilds") {
 if (product == "Gentoo Linux") {
   createStockResponse('sunrise_suggested','[Sunrise-Suggested] ', SunriseSuggested, 1);
-};
+}
 
 if (product == "Gentoo Developers/Staff") {
   if (component == "Retirement") {
@@ -290,4 +307,4 @@ if (product == "Gentoo Developers/Staff") {
     createStockResponse('recruiterannounce','[RecruiterAnnounce] ', RecruiterAnnounce, 1 );
     createStockResponse('recruitersetup','[RecruiterSetup] ', RecruiterSetup, 1 );
   }
-};
+}
