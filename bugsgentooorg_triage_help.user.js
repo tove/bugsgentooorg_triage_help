@@ -51,7 +51,7 @@
 /*************************************************************/
 /* set prefered height of some fields:                       */
 /*************************************************************/
-document.getElementById("comment").rows = 13;
+document.getElementById("comment").rows = 20;
 
 
 /************************************************************************************/
@@ -186,7 +186,7 @@ Date.prototype.toYYYYMMDDString = function () {return isNaN (this) ? 'NaN' : [th
 var textThanks = "Thanks for taking the time to report this issue.\n";
 
 function EmergeInfo (Event) {
-  var Text = textThanks + "\nPlease attach `emerge --info` to this bug report!";
+  var Text = textThanks + "\nPlease attach `emerge --info` to this bug report.";
   addTextToComment(Text, '', '', '1', '', '');
 }
 
@@ -277,7 +277,7 @@ function RetireAddInfra (Event) {
 }
 
 function NeedInfo (Event) {
-  var Text = "Closing this bug report as no further information has been provided. Please feel free to reopen this bug if you can provide the information asked for.\nThanks!";
+  var Text = "Closing this bug report as no further information has been provided. Please reopen this bug if you can provide the information asked for.\nThanks!";
   addTextToComment(Text, '', 'NEEDINFO', '', '1', '');
 }
 
