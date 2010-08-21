@@ -74,7 +74,7 @@ if (document.getElementById("addselfcc") != null) {
   individualDiv.setAttribute('id', "custom_div");
   var individualDivText = document.createTextNode(""); // "heading" for the div
   individualDiv.appendChild(individualDivText);
-  individualDiv.setAttribute('style', "max-width:700px; border:0px solid #000000; padding:0px; margin: 2px 0px 2px; text-align: left; background-color:#DDDAEC");
+  individualDiv.setAttribute('style', "max-width:700px; border:0px solid #000000; padding: 5px 0 5px 0; margin: 2px 0px 2px; text-align: left; background-color:#DDDAEC");
   commentField.parentNode.insertBefore(individualDiv, commentField.nextSibling);
 
 
@@ -92,19 +92,19 @@ function createStockResponse(stockID, linkTextDisplayed, clickHandler, bgcolor) 
     SpanContainer.appendChild(SpanContainerText);
     individualDiv.appendChild(SpanContainer);
     if (bgcolor == 1) {
-      SpanContainer.setAttribute('style', "padding:0px 5px 0px 5px; background-color:#d7c38e");
+      SpanContainer.setAttribute('style', "padding: 5px; margin-right: 5px; background-color: #F57900; cursor: pointer;");
     }
     else if (bgcolor == 2) {
-      SpanContainer.setAttribute('style', "padding:0px 5px 0px 5px; background-color:#f97bcf");
+      SpanContainer.setAttribute('style', "padding: 5px; margin-right: 5px; background-color: #73D216; cursor: pointer;");
     }
     else if (bgcolor == 3) {
-      SpanContainer.setAttribute('style', "padding:0px 5px 0px 5px; background-color:#f4af6e");
+      SpanContainer.setAttribute('style', "padding: 5px; margin-right: 5px; background-color: #729fcf; cursor: pointer;");
     }
     else if (bgcolor == 4) {
-      SpanContainer.setAttribute('style', "padding:0px 5px 0px 5px; background-color:#c7b39e");
+      SpanContainer.setAttribute('style', "padding: 5px; margin-right: 5px; background-color: #75507b; cursor: pointer; color: white;");
     }
     else /* if (bgcolor == 0) */ {
-      SpanContainer.setAttribute('style', "padding:0px 5px 0px 5px;");
+      SpanContainer.setAttribute('style', "padding: 5px; margin-right: 5px; cursor: pointer;");
     }
     SpanContainer.addEventListener("click", clickHandler, true);
 }
@@ -191,7 +191,7 @@ function EmergeInfo (Event) {
 }
 
 function DupClick (Event) {
-  var Text = textThanks + "This particular issue has already been reported in our bug tracking system, but please feel free to report any further bugs you find. Also feel encouraged to vote for the original bug report if interested.\n\nPlease feel free to search for existing reports first to avoid filing duplicates.";
+  var Text = "This particular issue has already been reported in our bug tracking system. You will be automatically put into CC on the original bug.\nPlease feel free to report any further bugs you find, also feel encouraged to vote for the original bug report if interested.\n\nPlease be sure to search for existing reports first next time to avoid filing duplicates.";
   addTextToComment(Text, 'duplicate', '', '', '0', '');
 }
 
@@ -289,22 +289,22 @@ function FixInGentoo (Event) {
 /*******************************************************************/
 /* now finally add our custom stock response links to the web page */
 /*******************************************************************/
-createStockResponse('fixingentoo', '[FixInGentoo] ', FixInGentoo, 2 );
-createStockResponse('duplicate1', '[Dup] ', DupClick, 2);
-createStockResponse('needinfo', '[NeedInfo] ', NeedInfo, 2);
-createStockResponse('moreinfo1', '[EmergeInfo] ', EmergeInfo, 4);
+createStockResponse('fixingentoo', '[FixInGentoo]', FixInGentoo, 2 );
+createStockResponse('duplicate1', '[Dup]', DupClick, 2);
+createStockResponse('needinfo', '[NeedInfo]', NeedInfo, 2);
+createStockResponse('moreinfo1', '[EmergeInfo]', EmergeInfo, 4);
 
 //if (product == "Gentoo Linux" && component == "Ebuilds") {
 if (product == "Gentoo Linux") {
-  createStockResponse('sunrise_suggested','[Sunrise-Suggested] ', SunriseSuggested, 1);
+  createStockResponse('sunrise_suggested','[Sunrise-Suggested]', SunriseSuggested, 1);
 }
 
 if (product == "Gentoo Developers/Staff") {
   if (component == "Retirement") {
-    createStockResponse('retireaddinfra','[Retire-AddInfra] ', RetireAddInfra, 1);
+    createStockResponse('retireaddinfra','[Retire-AddInfra]', RetireAddInfra, 1);
   }
   if (component == "New Developers") {
-    createStockResponse('recruiterannounce','[RecruiterAnnounce] ', RecruiterAnnounce, 1 );
-    createStockResponse('recruitersetup','[RecruiterSetup] ', RecruiterSetup, 1 );
+    createStockResponse('recruiterannounce','[RecruiterAnnounce]', RecruiterAnnounce, 1 );
+    createStockResponse('recruitersetup','[RecruiterSetup]', RecruiterSetup, 1 );
   }
 }
