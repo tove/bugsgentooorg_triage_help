@@ -1,32 +1,33 @@
 // ==UserScript==
-// @name		bugs.gentoo.org triage helper
-// @description		Adds links above the bugs.gentoo.org comment field for stock responses.
-//			You will need a Mozilla browser and the Greasemonkey extension 
-//			<http://greasemonkey.mozdev.org/index.html> 
-//			installed to use this, or the Opera web browser.
-// @author		Andre Klapper <aklapper@openismus.com>,
-// @author		Christian Kirbach <Christian.Kirbach@googlemail.com> (Opera fixes)
-// @author		Torsten Veller <tove@gentoo.org> (Gentoo modification)
-// @version		2010-06-25
-// @include		https://bugs.gentoo.org/show_bug.cgi?id=*
-// @copyright		(C) Copyright Control by the authors, 2007 and later.
-// @license		The contents of this file are subject to the Mozilla Public
-//			License Version 1.1 (the "License"); you may not use this file
-//			except in compliance with the License. You may obtain a copy of
-//			the License at http://www.mozilla.org/MPL/
-//			Software distributed under the License is distributed on an "AS
-//			IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
-//			implied. See the License for the specific language governing
-//			rights and limitations under the License.
-//			The Original Code is the Bugzilla Bug Tracking System.
-//			Parts of this code come from the old GNOME Bugzilla 2.20 version located at
-//			http://git.gnome.org/cgit/bugzilla-newer/tree/template/en/default/bug/edit.html.tmpl
-//			The Initial Developer of the Original Code is Netscape Communications
-//			Corporation. Portions created by Netscape are
-//			Copyright (C) 1998 Netscape Communications Corporation. All
-//			Rights Reserved.
-//			Contributor(s): Gervase Markham <gerv@gerv.net>
-//			                Vaskin Kissoyan <vkissoyan@yahoo.com>
+// @name    bugs.gentoo.org triage helper
+// @description   Adds links above the bugs.gentoo.org comment field for stock responses.
+//      You will need a Mozilla browser and the Greasemonkey extension 
+//      <http://greasemonkey.mozdev.org/index.html> 
+//      installed to use this, or the Opera web browser.
+// @author    Andre Klapper <aklapper@openismus.com>,
+// @author    Christian Kirbach <Christian.Kirbach@googlemail.com> (Opera fixes)
+// @author    Torsten Veller <tove@gentoo.org> (Gentoo modification)
+// @author    Alex Legler <a3li@gentoo.org> (Gentoo modification)
+// @version   2010-06-25
+// @include   https://bugs.gentoo.org/show_bug.cgi?id=*
+// @copyright   (C) Copyright Control by the authors, 2007 and later.
+// @license   The contents of this file are subject to the Mozilla Public
+//      License Version 1.1 (the "License"); you may not use this file
+//      except in compliance with the License. You may obtain a copy of
+//      the License at http://www.mozilla.org/MPL/
+//      Software distributed under the License is distributed on an "AS
+//      IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
+//      implied. See the License for the specific language governing
+//      rights and limitations under the License.
+//      The Original Code is the Bugzilla Bug Tracking System.
+//      Parts of this code come from the old GNOME Bugzilla 2.20 version located at
+//      http://git.gnome.org/cgit/bugzilla-newer/tree/template/en/default/bug/edit.html.tmpl
+//      The Initial Developer of the Original Code is Netscape Communications
+//      Corporation. Portions created by Netscape are
+//      Copyright (C) 1998 Netscape Communications Corporation. All
+//      Rights Reserved.
+//      Contributor(s): Gervase Markham <gerv@gerv.net>
+//                      Vaskin Kissoyan <vkissoyan@yahoo.com>
 
 
 
@@ -51,7 +52,7 @@
 /*************************************************************/
 /* set prefered height of some fields:                       */
 /*************************************************************/
-document.getElementById("comment").rows = 20;
+document.getElementById("comment").rows = 17;
 
 
 /************************************************************************************/
@@ -74,7 +75,7 @@ if (document.getElementById("addselfcc") != null) {
   individualDiv.setAttribute('id', "custom_div");
   var individualDivText = document.createTextNode(""); // "heading" for the div
   individualDiv.appendChild(individualDivText);
-  individualDiv.setAttribute('style', "max-width:700px; border:0px solid #000000; padding: 5px 0 5px 0; margin: 2px 0px 2px; text-align: left; background-color:#DDDAEC");
+  individualDiv.setAttribute('style', "max-width: 800px; border:0px solid #000000; padding: 5px 0 5px 0; margin: 2px 0px 2px; text-align: left; background-color:#DDDAEC");
   commentField.parentNode.insertBefore(individualDiv, commentField.nextSibling);
 
 
@@ -92,7 +93,7 @@ function createStockResponse(stockID, linkTextDisplayed, clickHandler, bgcolor) 
     SpanContainer.appendChild(SpanContainerText);
     individualDiv.appendChild(SpanContainer);
     if (bgcolor == 1) {
-      SpanContainer.setAttribute('style', "padding: 5px; margin-right: 5px; background-color: #F57900; cursor: pointer;");
+      SpanContainer.setAttribute('style', "padding: 5px; margin-right: 5px; background-color: #CE5C00; cursor: pointer; color: white;");
     }
     else if (bgcolor == 2) {
       SpanContainer.setAttribute('style', "padding: 5px; margin-right: 5px; background-color: #73D216; cursor: pointer;");
@@ -191,7 +192,7 @@ function EmergeInfo (Event) {
 }
 
 function DupClick (Event) {
-  var Text = "This particular issue has already been reported in our bug tracking system. You will be automatically put into CC on the original bug.\nPlease feel free to report any further bugs you find, also feel encouraged to vote for the original bug report if interested.\n\nPlease be sure to search for existing reports first next time to avoid filing duplicates.";
+  var Text = "This particular issue has already been reported. You will be automatically put into CC on the original bug.\nFeel free to report any further bugs you find, also feel encouraged to vote for the original bug report if interested.\n\nPlease be sure to search for existing reports first next time to avoid filing duplicates. Thanks!";
   addTextToComment(Text, 'duplicate', '', '', '0', '');
 }
 
@@ -270,9 +271,9 @@ function RetireAddInfra (Event) {
   var d = new Date().toYYYYMMDDString();
   document.getElementsByName("status_whiteboard")[0].value="infra-retire: " + d;
   if(!document.getElementById("newcc").value) {
-      document.getElementById("newcc").value = "infra-bugs@gentoo.org";
+    document.getElementById("newcc").value = "infra-bugs@gentoo.org";
   } else {
-      document.getElementById("newcc").value += ", infra-bugs@gentoo.org";
+    document.getElementById("newcc").value += ", infra-bugs@gentoo.org";
   }
 }
 
@@ -281,22 +282,146 @@ function NeedInfo (Event) {
   addTextToComment(Text, '', 'NEEDINFO', '', '1', '');
 }
 
+function ZeroDayBump (Event) {
+  var Text = "Thanks for reporting this version bump request, it's now assigned to the appropriate maintainer(s).\n\nPlease note that not all maintainers appreciate such bugs being filed immediately or closely after the upstream release. Unless you're sure that the maintainer(s) in questions do want such zero-day bugs, please wait seven (7) days before filing a bump request, maybe the package is already updated by then. Thanks!";
+  addTextToComment(Text, '', '', '', '', '');
+}
+
 function FixInGentoo (Event) {
   var Text = "This problem has been fixed in our software repository. The fix will be available on the mirrors soon. Thank you for your bug report.";
   addTextToComment(Text, '', 'FIXED', '', '', '');
 }
 
+function GLSARequestFiled(Event) {
+  var text = "GLSA request filed.";
+  var wb = document.getElementsByName('status_whiteboard')[0];
+
+  if (wb.value == "") {
+    wb.value = "?? [glsa]";
+  } else {
+    if (wb.value.match(/^[ABC~][01234]\??\s*?\[.*?\]$/i)) {
+      wb.value = wb.value.replace(/\[.*?\]/, "[glsa]");
+    } else {
+      wb.style.backgroundColor="#FCAF3E";
+      wb.focus();
+    }
+  }
+
+  addTextToComment(text, 'assigned', '', '', '', '');
+}
+
+function SecCleanup(Event) {
+  var text = "Please remove any vulnerable ebuilds left in the tree.";
+  var wb = document.getElementsByName('status_whiteboard')[0];
+
+  if (wb.value == "") {
+    wb.value = "?? [cleanup]";
+  } else {
+    if (wb.value.match(/^[ABC~][01234]\??\s*?\[.*?\]$/i)) {
+      wb.value = wb.value.replace(/\[(.*?)\]/, "[$1/cleanup]");
+    } else {
+      wb.style.backgroundColor="#FCAF3E";
+      wb.focus();
+    }
+  }
+
+  addTextToComment(text, 'assigned', '', '', '', '');
+}
+
+function SecStableAsk(Event) {
+  var text = "Maintainers: Can we go stable with X?";
+  var wb = document.getElementsByName('status_whiteboard')[0];
+
+  if (wb.value == "") {
+    wb.value = "?? [stable?]";
+  } else {
+    if (wb.value.match(/^[ABC~][01234]\??\s*?\[.*?\]$/i)) {
+      wb.value = wb.value.replace(/\[(.*?)\]/, "[stable?]");
+    } else {
+      wb.style.backgroundColor="#FCAF3E";
+      wb.focus();
+    }
+  }
+
+  addTextToComment(text, 'assigned', '', '', '', '');
+}
+
+function SecCloseNoGLSA(Event) {
+  var text = "Closing noglsa.";
+  var wb = document.getElementsByName('status_whiteboard')[0];
+
+  if (wb.value == "") {
+    wb.value = "?? [noglsa]";
+  } else {
+    if (wb.value.match(/^[ABC~][01234]\??\s*?\[.*?\]$/i)) {
+      wb.value = wb.value.replace(/\[(.*?)\]/, "[noglsa]");
+    } else {
+      wb.style.backgroundColor="#FCAF3E";
+      wb.focus();
+    }
+  }
+
+  addTextToComment(text, 'RESOLVED', 'FIXED', '', '', '');
+}
+
+function SecVoteGLSAYes(Event) {
+  var text = "GLSA vote: YES";
+  var wb = document.getElementsByName('status_whiteboard')[0];
+
+  if (wb.value == "") {
+    wb.value = "?? [glsa?]";
+  } else {
+    if (wb.value.match(/^[ABC~][01234]\??\s*?\[.*?\]$/i)) {
+      wb.value = wb.value.replace(/\[(.*?)\]/, "[glsa?]");
+    } else {
+      wb.style.backgroundColor="#FCAF3E";
+      wb.focus();
+    }
+  }
+
+  addTextToComment(text, 'assigned', '', '', '', '');
+}
+
+function SecVoteGLSANo(Event) {
+  var text = "GLSA vote: NO";
+  var wb = document.getElementsByName('status_whiteboard')[0];
+
+  if (wb.value == "") {
+    wb.value = "?? [glsa?]";
+  } else {
+    if (wb.value.match(/^[ABC~][01234]\??\s*?\[.*?\]$/i)) {
+      wb.value = wb.value.replace(/\[(.*?)\]/, "[glsa?]");
+    } else {
+      wb.style.backgroundColor="#FCAF3E";
+      wb.focus();
+    }
+  }
+
+  addTextToComment(text, 'assigned', '', '', '', '');
+}
+
 /*******************************************************************/
 /* now finally add our custom stock response links to the web page */
 /*******************************************************************/
-createStockResponse('fixingentoo', '[FixInGentoo]', FixInGentoo, 2 );
-createStockResponse('duplicate1', '[Dup]', DupClick, 2);
-createStockResponse('needinfo', '[NeedInfo]', NeedInfo, 2);
-createStockResponse('moreinfo1', '[EmergeInfo]', EmergeInfo, 4);
+createStockResponse('fixingentoo', 'Fix in CVS', FixInGentoo, 2);
+createStockResponse('duplicate1', 'DUPL', DupClick, 3);
+createStockResponse('needinfo', 'NEED', NeedInfo, 3);
+createStockResponse('zerodaybump', '0-day bump', ZeroDayBump, 3);
+createStockResponse('moreinfo1', '--info', EmergeInfo, 3);
 
 //if (product == "Gentoo Linux" && component == "Ebuilds") {
-if (product == "Gentoo Linux") {
-  createStockResponse('sunrise_suggested','[Sunrise-Suggested]', SunriseSuggested, 1);
+//if (product == "Gentoo Linux") {
+//  createStockResponse('sunrise_suggested', 'sunrise', SunriseSuggested, 1);
+//
+//}
+//
+if (product == "Gentoo Security") {
+  createStockResponse('secstableask', '[stable?]', SecStableAsk, 1);
+  createStockResponse('glsarequestfiled', 'req filed', GLSARequestFiled, 1);
+  createStockResponse('seccelanup', '[cleanup]', SecCleanup, 1);
+  createStockResponse('noglsa', '[noglsa]', SecCloseNoGLSA, 1);
+  createStockResponse('YES', 'YES', SecVoteGLSAYes, 1);
+  createStockResponse('NO', 'NO', SecVoteGLSANo, 1);
 }
 
 if (product == "Gentoo Developers/Staff") {
@@ -308,3 +433,5 @@ if (product == "Gentoo Developers/Staff") {
     createStockResponse('recruitersetup','[RecruiterSetup]', RecruiterSetup, 1 );
   }
 }
+
+// vim: set expandtab sts=2 sw=2 ts=2:
