@@ -10,6 +10,7 @@
 // @author    Alex Legler <a3li@gentoo.org> (Gentoo modification)
 // @version   2010-06-25
 // @include   https://bugs.gentoo.org/show_bug.cgi?id=*
+// @include   https://bugs.gentoo.org/*
 // @copyright   (C) Copyright Control by the authors, 2007 and later.
 // @license   The contents of this file are subject to the Mozilla Public
 //      License Version 1.1 (the "License"); you may not use this file
@@ -75,7 +76,7 @@ if (document.getElementById("addselfcc") != null) {
   individualDiv.setAttribute('id', "custom_div");
   var individualDivText = document.createTextNode(""); // "heading" for the div
   individualDiv.appendChild(individualDivText);
-  individualDiv.setAttribute('style', "max-width: 800px; border:0px solid #000000; padding: 5px 0 5px 0; margin: 2px 0px 2px; text-align: left; background-color:#DDDAEC");
+  individualDiv.setAttribute('style', "max-width: 800px; border:0px solid #000000; padding: 5px 0 5px 0; margin: 2px 0px 2px; text-align: left;");
   commentField.parentNode.insertBefore(individualDiv, commentField.nextSibling);
 
 
