@@ -228,7 +228,7 @@ On behalf of the Gentoo Sunrise Team\n\
 
 function RecruiterAnnounce (Event) {
   var Text = "I will be your recruiter. Please send your quizzes to recruiters@gentoo.org\nwhen approved by your mentor. Always add a comment to this bug when you send\nsomething to that address. When the quizzes are sent please contact me by IRC\nor email to schedule the first review session. If you think that recruiters\naren't paying attention to this bug at any later point in time, it's your job\nto ping us on IRC if you don't want any delays.\n";
-  addTextToComment(Text, '', '', '', '', '');
+  addTextToComment(Text, 'accept', '', '', '', '');
 }
 
 function RecruiterSetup (Event) {
@@ -267,14 +267,17 @@ For the mentor:\n\
 }
 
 function RetireAddInfra (Event) {
-  var Text = "We are proceeding with your retirement.\n\nThank you for all your hard work and if you ever find the time to get back,\njust reopen this bug.";
-  addTextToComment(Text, '', '', '', '', '');
+  var Dev = document.getElementsByName("short_desc")[0].value.replace(/^[Rr]etire. *([^ ]*).*/, '$1')
+  Dev = prompt('Developer Name:',Dev);
+
+  var Text = "Let's proceed with the retirement then.\n\n" + Dev +", thank you for all your hard work and if you ever find the time to\nget back, just reopen this bug.";
+  addTextToComment(Text, 'accept', '', '', '', '');
   var d = new Date().toYYYYMMDDString();
   document.getElementsByName("status_whiteboard")[0].value="infra-retire: " + d;
   if(!document.getElementById("newcc").value) {
     document.getElementById("newcc").value = "infra-bugs@gentoo.org";
   } else {
-    document.getElementById("newcc").value += ", infra-bugs@gentoo.org";
+    document.getElementById("newcc").value += " infra-bugs@gentoo.org";
   }
 }
 
